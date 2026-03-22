@@ -93,7 +93,6 @@ class ObservationsCfg:
     @configclass
     class PolicyCfg(ObsGroup):
         """Observations for the policy."""
-        # isaaclab自带
         base_height = ObsTerm(func=mdp.base_pos_z, noise=Unoise(n_min=-0.01, n_max=0.01))
         base_lin_vel = ObsTerm(func=mdp.base_lin_vel, noise=Unoise(n_min=-0.1, n_max=0.1)) # 观测机器人基座的线性速度(包含x、y、z三个方向)
         base_ang_vel = ObsTerm(func=mdp.base_ang_vel, noise=Unoise(n_min=-0.2, n_max=0.2)) # 基座的角速度(使用scale进行归一化缩放)
@@ -104,7 +103,6 @@ class ObservationsCfg:
         joint_vel = ObsTerm(func=mdp.joint_vel, noise=Unoise(n_min=-1.5, n_max=1.5))
         actions = ObsTerm(func=mdp.last_action)
 
-        # # 自己编写的
         # base_roll_pitch = ObsTerm(func=mdp.base_roll_pitch) # 机器人的翻滚角(roll) 和俯仰角(pitch)
         # base_up_proj = ObsTerm(func=mdp.base_up_proj) # 机器人向上方向与世界坐标系z轴的投影关系，用于判断机器人是否保持直立姿态
         # base_heading_proj = ObsTerm(  # 朝向与命令方向的投影关系
@@ -123,7 +121,6 @@ class ObservationsCfg:
     @configclass
     class CriticCfg(ObsGroup):
         """Test config class for critic observation group"""
-        # isaaclab自带
         base_height = ObsTerm(func=mdp.base_pos_z, noise=Unoise(n_min=-0.01, n_max=0.01)) # 观测机器人基座的高度（z坐标）
         base_lin_vel = ObsTerm(func=mdp.base_lin_vel, noise=Unoise(n_min=-0.1, n_max=0.1)) # 观测机器人基座的线性速度(包含x、y、z三个方向)
         base_ang_vel = ObsTerm(func=mdp.base_ang_vel, noise=Unoise(n_min=-0.2, n_max=0.2)) # 基座的角速度(使用scale进行归一化缩放)
@@ -142,7 +139,6 @@ class ObservationsCfg:
 
         actions = ObsTerm(func=mdp.last_action)
 
-        # 自己编写的
         base_roll_pitch_yaw = ObsTerm(func=mdp.base_roll_pitch_yaw) # 机器人的偏航角(yaw) 翻滚角(roll) 和俯仰角(pitch)
         base_up_proj = ObsTerm(func=mdp.base_up_proj) # 机器人向上方向与世界坐标系z轴的投影关系，用于判断机器人是否保持直立姿态
         # base_heading_proj = ObsTerm(  # 朝向与命令方向的投影关系
@@ -205,12 +201,10 @@ class EventCfg:
 class RewardsCfg:
     """Reward terms for the MDP."""
 
-    # isaaclab自带
     # alive = RewTerm(func=mdp.is_alive, weight=2.0) # 存活奖励
     termination = RewTerm(func=mdp.is_terminated, weight=-5.0) # 结束惩罚
     action_l2 = RewTerm(func=mdp.action_l2, weight=-0.01) # 惩罚过大的动作
 
-    # 自己编写的
     # 直立姿态奖励
     upright = RewTerm(func=mdp.upright_posture_bonus, weight=0.25, params={"threshold": 0.45})
 
