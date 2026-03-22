@@ -59,7 +59,7 @@ class CommandsCfg:
 
     base_velocity = mdp.UniformVelocityCommandCfg(
         asset_name="robot",
-        resampling_time_range=(10.0, 10.0),
+        resampling_time_range=(2.0, 10.0),
         rel_standing_envs=0.0,  # 0%站立环境，都要运动
         rel_heading_envs=0.0,   # 0%朝向控制，直接使用角速度
         heading_command=False,  # 不使用朝向命令
